@@ -11,3 +11,5 @@ client/dist
 server/dist
 *.zip
 **/*.tsbuildinfo
+backups
+**/*.backup-*

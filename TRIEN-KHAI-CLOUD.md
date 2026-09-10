@@ -27,6 +27,10 @@ Không gửi server/.env vì có API key và JWT secret. Tắt phần mềm rồ
 
 Lần triển khai đầu nếu chưa chuyển database sẽ tạo 35 câu hỏi và một đề mẫu. Không nhầm dữ liệu mẫu với dữ liệu của máy cá nhân.
 
+## Nâng cấp lên bản có 12 chức năng mở rộng
+
+Mỗi lần khởi động, `scripts/cloud-start.mjs` chạy `prisma db push` trước khi bật server, nên các bảng và cột mới (thẩm định câu hỏi, chia sẻ theo khoa/tổ, nhật ký thao tác, mã đề, chế độ ôn luyện) được tạo tự động trên đĩa `/var/data`. Không cần thao tác thủ công và không mất dữ liệu cũ. Nên sao lưu `/var/data/questions.db` trước khi deploy bản mới.
+
 ## Kiểm chứng
 
 Đã chuẩn bị cấu hình và script. Docker image, disk và URL Render chưa được kiểm chứng trực tiếp trước khi kết nối/triển khai. Phần mềm local vẫn chạy theo hướng dẫn cũ; biến mật khẩu seed chỉ thay đổi tài khoản khi khởi tạo mới và được cấu hình.
