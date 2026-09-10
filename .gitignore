@@ -1,0 +1,12 @@
+node_modules/
+.env
+server/.env
+*.db
+*.db-journal
+dist/
+*.tsbuildinfo
+
+# Sao lưu cục bộ — chứa dữ liệu và mã băm mật khẩu thật, tuyệt đối không đưa lên kho mã
+backups/
+*.backup-*
+*.db.backup*

@@ -1,0 +1,11 @@
+import {execFileSync,spawn} from 'node:child_process';
+import {mkdirSync} from 'node:fs';
+const required=['JWT_SECRET','SEED_ADMIN_PASSWORD','SEED_TEACHER_PASSWORD','SEED_STUDENT_PASSWORD'];
+for(const key of required) if(!process.env[key]||process.env[key].length<16) throw new Error('Missing or weak cloud setting: '+key);
+if(!process.env.DATABASE_URL?.startsWith('file:/var/data/')) throw new Error('Cloud SQLite must use /var/data persistent volume.');
+mkdirSync('/var/data',{recursive:true});
+execFileSync(process.execPath,['node_modules/prisma/build/index.js','db','push','--schema=server/prisma/schema.prisma','--skip-generate'],{stdio:'inherit'});
+execFileSync(process.execPath,['--import','tsx','prisma/seed.ts'],{cwd:'server',stdio:'inherit'});
+const child=spawn(process.execPath,['dist/index.js'],{cwd:'server',stdio:'inherit'});
+for(const signal of ['SIGTERM','SIGINT']) process.on(signal,()=>child.kill(signal));
+child.on('exit',code=>process.exit(code??1));

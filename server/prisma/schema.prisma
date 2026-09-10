@@ -1,0 +1,105 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "sqlite"
+  url = env("DATABASE_URL")
+}
+model User {
+  id Int @id @default(autoincrement())
+  username String @unique
+  name String
+  password String
+  role String
+  active Boolean @default(true)
+  recoveryHash String?
+  tokenVersion Int @default(0)
+  department String @default("")
+  questions Question[]
+  exams Exam[]
+  attempts Attempt[]
+  logs AuditLog[]
+  reviewed Question[] @relation("reviewer")
+}
+model Question {
+  id Int @id @default(autoincrement())
+  content String
+  type String
+  options String
+  correct String
+  explanation String
+  topic String
+  level String
+  audience String
+  source String
+  createdAt DateTime @default(now())
+  creatorId Int
+  creator User @relation(fields:[creatorId],references:[id])
+  status String @default("APPROVED")
+  shared Boolean @default(false)
+  reviewerId Int?
+  reviewer User? @relation("reviewer",fields:[reviewerId],references:[id])
+  reviewedAt DateTime?
+  reviewNote String @default("")
+  @@index([creatorId])
+  @@index([creatorId,audience,topic])
+  @@index([status])
+  @@index([shared,status])
+}
+model Exam {
+  id Int @id @default(autoincrement())
+  name String
+  topic String
+  audience String
+  duration Int
+  passScore Float
+  questions String
+  ratios String
+  topicRatios String @default("[]")
+  variants String @default("[]")
+  practice Boolean @default(false)
+  maxAttempts Int @default(1)
+  shuffleQuestions Boolean @default(true)
+  shuffleAnswers Boolean @default(true)
+  published Boolean @default(false)
+  assignedUserIds String @default("[]")
+  createdAt DateTime @default(now())
+  creatorId Int
+  creator User @relation(fields:[creatorId],references:[id])
+  attempts Attempt[]
+  @@index([creatorId])
+  @@index([published])
+}
+model Attempt {
+  id Int @id @default(autoincrement())
+  examId Int
+  exam Exam @relation(fields:[examId],references:[id])
+  userId Int
+  user User @relation(fields:[userId],references:[id])
+  attemptNo Int @default(1)
+  variant String @default("")
+  startedAt DateTime @default(now())
+  expiresAt DateTime
+  submittedAt DateTime?
+  snapshot String
+  answers String @default("{}")
+  grades String @default("{}")
+  score Float @default(0)
+  status String @default("IN_PROGRESS")
+  @@unique([examId,userId,attemptNo])
+  @@index([userId])
+  @@index([status,expiresAt])
+}
+model AuditLog {
+  id Int @id @default(autoincrement())
+  at DateTime @default(now())
+  userId Int
+  user User @relation(fields:[userId],references:[id])
+  actorName String
+  action String
+  entity String
+  entityId Int?
+  detail String @default("")
+  @@index([at])
+  @@index([entity,entityId])
+}

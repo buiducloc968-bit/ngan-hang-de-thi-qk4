@@ -1,0 +1,13 @@
+node_modules
+**/node_modules
+.git
+.env
+**/.env
+**/*.db
+**/*.db-journal
+**/*.db-wal
+**/*.db-shm
+client/dist
+server/dist
+*.zip
+**/*.tsbuildinfo

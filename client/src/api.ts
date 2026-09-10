@@ -1,0 +1,8 @@
+export async function api(url:string,method='GET',body?:unknown){const r=await fetch('/api'+url,{method,headers:{'Content-Type':'application/json',Authorization:'Bearer '+(sessionStorage.getItem('token')||'')},...(body===undefined?{}:{body:JSON.stringify(body)})});const d=await r.json();if(!r.ok){if(r.status===401&&url!=='/auth/login'){sessionStorage.removeItem('token');window.dispatchEvent(new Event('session-expired'));}throw new Error(d.error||'Không thể xử lý yêu cầu.');}return d;}
+export async function download(url:string,filename:string){const r=await fetch('/api'+url,{headers:{Authorization:'Bearer '+sessionStorage.getItem('token')}});if(!r.ok)throw new Error((await r.json()).error);const link=document.createElement('a');link.href=URL.createObjectURL(await r.blob());link.download=filename;link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000);}
+export const levels=['Nhận biết','Thông hiểu','Vận dụng','Vận dụng cao'];
+export const audiences=['Chiến sĩ mới','Học viên','Hạ sĩ quan – binh sĩ','Cán bộ'];
+export const typeNames:Record<string,string>={SINGLE:'Trắc nghiệm một đáp án',MULTIPLE:'Trắc nghiệm nhiều đáp án',TRUE_FALSE:'Đúng / Sai',SHORT:'Tự luận ngắn'};
+export const topics=['Truyền thống Quân đội nhân dân Việt Nam','Phẩm chất Bộ đội Cụ Hồ','Điều lệnh, điều lệ Quân đội','Xây dựng chính quy, chấp hành kỷ luật','Bảo vệ nền tảng tư tưởng của Đảng'];
+export const blankQ=()=>({content:'',type:'SINGLE',options:['','','',''],correct:[0],explanation:'',topic:topics[0],level:levels[0],audience:'Học viên',source:''});
+export type Question=ReturnType<typeof blankQ>&{id?:number,creator?:{name:string},createdAt?:string};
