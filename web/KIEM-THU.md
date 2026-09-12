@@ -31,4 +31,4 @@ Giới hạn: chưa có API key để gọi OpenAI thật; chưa kiểm thử tr
 Bổ sung lớp / đơn vị học viên và chấm bài thi giấy theo mã đề.
 
 - Kiểm thử tích hợp ứng dụng web: **123/123 đạt**, thêm 10 kiểm tra về lớp / đơn vị (tạo lớp, xếp học viên, giao đề theo lớp, chặn học viên ngoài lớp, lọc bảng điểm và thống kê theo lớp) và 7 kiểm tra chấm bài thi giấy (chấm đúng theo bảng đáp án của mã đề, phân quyền, chuỗi đáp án sai định dạng, mã đề không tồn tại).
-- Bản desktop: **17/17** kiểm thử máy chủ nội bộ, **25/25** kiểm thử ứng dụng thật, và **19/19** khi nâng cấp một database của phiên bản cũ — bảng Classroom cùng các cột mới được bổ sung tự động, dữ liệu cũ giữ nguyên.
+- Bản desktop: **17/17** kiểm thử máy chủ nội bộ, **27/27** kiểm thử ứng dụng thật, và **19/19** khi nâng cấp một database của phiên bản cũ — bảng Classroom cùng các cột mới được bổ sung tự động, dữ liệu cũ giữ nguyên.
