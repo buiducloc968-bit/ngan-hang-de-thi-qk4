@@ -1,0 +1,67 @@
+{
+  "name": "ngan-hang-de-thi-desktop",
+  "productName": "Ngân hàng đề thi và đáp án",
+  "version": "1.0.0",
+  "description": "Phần mềm AI ứng dụng - Ngân hàng đề thi và đáp án (bản desktop)",
+  "author": "HDTC",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "start": "node scripts/ensure-electron.mjs && node scripts/prepare.mjs --dev && electron .",
+    "prepare:app": "node scripts/prepare.mjs",
+    "icon": "node scripts/ensure-electron.mjs && electron scripts/make-icon.js",
+    "pack": "node scripts/ensure-electron.mjs && node scripts/prepare.mjs && electron scripts/make-icon.js && electron-builder --dir",
+    "dist": "node scripts/ensure-electron.mjs && node scripts/prepare.mjs && electron scripts/make-icon.js && electron-builder --win --x64",
+    "test": "node scripts/test-server.mjs && node scripts/test-app.mjs",
+    "test:server": "node scripts/test-server.mjs",
+    "test:app": "node scripts/test-app.mjs",
+    "test:packaged": "node scripts/test-app.mjs --packaged"
+  },
+  "devDependencies": {
+    "electron": "44.3.0",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "vn.qk4.nganhangdethi",
+    "productName": "Ngân hàng đề thi và đáp án",
+    "executableName": "NganHangDeThi",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "server-host.js",
+      "src/**/*",
+      "pages/**/*",
+      "package.json"
+    ],
+    "asarUnpack": [
+      "server-host.js",
+      "src/db-sync.js"
+    ],
+    "npmRebuild": false,
+    "afterPack": "scripts/after-pack.js",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Ngân hàng đề thi và đáp án",
+      "artifactName": "NganHangDeThi-Setup-${version}.${ext}",
+      "deleteAppDataOnUninstall": false
+    }
+  }
+}

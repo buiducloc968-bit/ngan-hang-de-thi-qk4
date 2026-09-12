@@ -1,0 +1,42 @@
+:root{--red:#8e2028;--red-dark:#6d141b;--gold:#d8b25c;--ink:#1d2320;--muted:#5f6a64;--line:#e2ddd2;--paper:#faf8f3;--card:#fff;color-scheme:light;font-family:"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--paper)}
+[hidden]{display:none!important}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper)}
+
+/* Màn hình chờ khởi động */
+.splash{min-height:100vh;display:grid;place-items:center;background:radial-gradient(circle at 30% 20%,#a3303a,var(--red-dark) 70%);color:#fff;user-select:none;cursor:default}
+.splash-card{text-align:center;padding:40px}
+.seal{width:72px;height:72px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;font-size:34px;color:var(--red);background:var(--gold);box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.eyebrow{letter-spacing:.18em;font-size:12px;font-weight:600;color:#f5d491;margin:0 0 8px}
+.splash h1{font-size:28px;line-height:1.25;margin:0 0 28px;letter-spacing:.02em}
+.spinner{width:34px;height:34px;margin:0 auto 16px;border:3px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.spinner{animation-duration:3s}}
+.splash .status{margin:0 0 6px;font-size:15px}
+.splash small{opacity:.78}
+
+/* Cửa sổ cài đặt */
+.settings header{padding:22px 28px 4px}
+.settings h1{margin:0;font-size:22px;color:var(--red)}
+.settings main{padding:12px 28px 90px;display:grid;gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.card h2{margin:0 0 4px;font-size:16px}
+.muted{color:var(--muted);font-size:13px;margin:4px 0 12px;line-height:1.45}
+.muted:empty{display:none}
+.field{display:grid;gap:6px;margin:0 0 12px;font-size:13px;font-weight:600}
+.field-narrow{max-width:260px}
+input[type=text],input[type=password],input[type=number]{font:inherit;font-weight:400;font-size:14px;padding:9px 11px;border:1px solid #cfc8ba;border-radius:8px;background:#fff;color:var(--ink);width:100%}
+input[readonly]{background:#f3f0e9;color:var(--muted)}
+input:focus-visible,button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.choices{border:0;padding:0;margin:0 0 14px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.choices label{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer;font-size:14px}
+.choices label:has(input:checked){border-color:var(--red);background:#fbf1f1}
+.choices small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.check{display:flex;gap:8px;align-items:center;font-size:13px;margin:-4px 0 12px}
+.actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+button{font:inherit;font-size:13px;padding:8px 14px;border-radius:8px;border:1px solid #cfc8ba;background:#fff;color:var(--ink);cursor:pointer}
+button:hover:not(:disabled){border-color:var(--red)}
+button.primary{background:var(--red);border-color:var(--red);color:#fff}
+button:disabled{opacity:.55;cursor:default}
+.status-bar{position:fixed;left:16px;right:16px;bottom:14px;padding:11px 14px;border-radius:10px;background:#1f5135;color:#fff;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.status-bar.error{background:var(--red)}

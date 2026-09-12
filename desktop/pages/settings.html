@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'">
+<title>Cài đặt</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body class="settings">
+<header>
+  <h1>Cài đặt phần mềm</h1>
+  <p class="muted" id="version"></p>
+</header>
+<main>
+  <section class="card">
+    <h2>Trợ lý AI</h2>
+    <p class="muted">DEMO chạy ngoại tuyến, không gửi tài liệu ra ngoài. OpenAI gửi tài liệu tới dịch vụ OpenAI để tạo câu hỏi, soát lỗi và gợi ý chấm; chỉ dùng với tài liệu được phép.</p>
+    <form id="ai-form">
+      <fieldset class="choices">
+        <legend hidden>Chế độ AI</legend>
+        <label><input type="radio" name="mode" value="demo"><span><strong>DEMO</strong><small>Quy tắc mẫu, không cần Internet</small></span></label>
+        <label><input type="radio" name="mode" value="openai"><span><strong>OpenAI</strong><small>Cần khóa API và Internet</small></span></label>
+      </fieldset>
+      <label class="field"><span>OpenAI API key</span><input id="apiKey" type="password" autocomplete="off" spellcheck="false"></label>
+      <label class="check" id="clear-key-row"><input id="clearKey" type="checkbox">Xóa khóa API đã lưu</label>
+      <label class="field"><span>Model</span><input id="model" type="text" spellcheck="false" placeholder="gpt-4.1-mini"></label>
+      <p class="muted" id="key-note"></p>
+      <div class="actions"><button class="primary" type="submit">Lưu và áp dụng</button></div>
+    </form>
+  </section>
+
+  <section class="card">
+    <h2>Dữ liệu</h2>
+    <p class="muted">Toàn bộ câu hỏi, đề kiểm tra, bài làm và tài khoản nằm trong một tệp SQLite trên máy này.</p>
+    <label class="field"><span>Tệp dữ liệu đang dùng</span><input id="db-path" type="text" readonly></label>
+    <p class="muted" id="db-note"></p>
+    <label class="check"><input id="backup-on-quit" type="checkbox">Tự động sao lưu mỗi khi thoát phần mềm</label>
+    <label class="field field-narrow"><span>Số bản sao lưu tự động giữ lại</span><input id="backup-keep" type="number" min="1" max="50" step="1"></label>
+    <div class="actions">
+      <button type="button" id="backup">Sao lưu…</button>
+      <button type="button" id="restore">Khôi phục từ bản sao lưu…</button>
+      <button type="button" id="open-data">Mở thư mục dữ liệu</button>
+    </div>
+    <div class="actions">
+      <button type="button" id="use-other">Dùng tệp dữ liệu khác…</button>
+      <button type="button" id="use-default">Về tệp dữ liệu mặc định</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Máy chủ nội bộ</h2>
+    <p class="muted" id="server-note"></p>
+    <div class="actions"><button type="button" id="open-logs">Mở thư mục nhật ký</button></div>
+  </section>
+</main>
+<div id="status" role="status" class="status-bar" hidden></div>
+<script src="settings.js"></script>
+</body>
+</html>

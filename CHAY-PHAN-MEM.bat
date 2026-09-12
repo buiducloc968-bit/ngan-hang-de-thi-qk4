@@ -1,6 +1,6 @@
 @echo off
 setlocal
-cd /d "%~dp0"
+cd /d "%~dp0web"
 title NGAN HANG CAU HOI - DUNG DONG CUA SO NAY
 if not exist server\.env goto setup
 if not exist node_modules goto setup

@@ -1,6 +1,6 @@
 @echo off
 setlocal
-cd /d "%~dp0"
+cd /d "%~dp0web"
 title NGAN HANG CAU HOI - CAI DAT
 where node >nul 2>nul
 if errorlevel 1 goto no_node
